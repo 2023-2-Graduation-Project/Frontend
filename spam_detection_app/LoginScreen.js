@@ -7,6 +7,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 export default function LoginScreen({ navigation }) {
@@ -44,38 +45,59 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require("./assets/shield.png")} style={styles.image} />
-      <Text style={styles.title}>SpamShield</Text>
-      <TextInput
-        placeholder="아이디"
-        value={id}
-        onChangeText={setId}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="비밀번호"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.buttonText}>로그인</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.registerButton} onPress={handleSignup}>
-        <Text style={styles.buttonText}>회원가입</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require("./assets/bgcyber.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.overlay}>
+        <View style={styles.container}>
+          <Image source={require("./assets/shsh.png")} style={styles.image} />
+          <Text style={styles.title}>SpamShield</Text>
+          <TextInput
+            placeholder="아이디"
+            placeholderTextColor="black"
+            value={id}
+            onChangeText={setId}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="비밀번호"
+            placeholderTextColor="black"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+          />
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+            <Text style={styles.buttonText}>로그인</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleSignup}
+          >
+            <Text style={styles.buttonText}>회원가입</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     padding: 16,
-    backgroundColor: "#f5f5f5",
   },
   image: {
     alignSelf: "center",
@@ -84,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 24,
@@ -99,14 +121,14 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: "#bbb",
-    borderWidth: 1,
+    borderColor: "black",
+    borderWidth: 1.5,
     marginBottom: 12,
     padding: 8,
     borderRadius: 5,
   },
   loginButton: {
-    backgroundColor: "#4a90e2",
+    backgroundColor: "#37c7fb",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
@@ -115,7 +137,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   registerButton: {
-    backgroundColor: "#e94e77",
+    backgroundColor: "#0b5685",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,

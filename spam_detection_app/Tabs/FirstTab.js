@@ -63,9 +63,13 @@ export default function FirstTab({ route, navigation }) {
           style={[styles.input, customStyles.messageInput]}
           placeholder="해당 문자를 입력하세요..."
           onChangeText={setMessageText}
+          multiline={true}
           value={messageText}
         />
-        <TouchableOpacity style={styles.button} onPress={sendTextToServer}>
+        <TouchableOpacity
+          style={customStyles.button}
+          onPress={sendTextToServer}
+        >
           <Text style={styles.buttonText}>스팸 검사</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button22}>
@@ -77,6 +81,39 @@ export default function FirstTab({ route, navigation }) {
 }
 
 const customStyles = StyleSheet.create({
+  button: {
+    backgroundColor: "#0b5685",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+    width: "35%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+
+  button2: {
+    backgroundColor: "#007BFF",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    alignSelf: "center",
+    width: 200,
+  },
+  button22: {
+    backgroundColor: "#37c7fb",
+    padding: 3,
+    borderRadius: 5,
+    alignItems: "center",
+    position: "absolute",
+    top: 5,
+    right: 5,
+    width: 150,
+    height: 30,
+  },
   header: {
     position: "absolute",
     top: 20,
@@ -89,13 +126,26 @@ const customStyles = StyleSheet.create({
   },
   guideText: {
     fontSize: 14,
-    marginBottom: 4,
+    marginBottom: 5,
   },
   numberInput: {
-    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    width: "100%",
+    backgroundColor: "#f8f8f8",
   },
   messageInput: {
-    height: 100,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+    width: "100%",
+    backgroundColor: "#f8f8f8",
+    height: 120,
     textAlignVertical: "top",
   },
 });

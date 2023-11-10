@@ -7,6 +7,7 @@ import {
   RefreshControl,
   Button,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import styles from "../styles";
 import Modal from "react-native-modal";
@@ -17,6 +18,17 @@ export default function SecondTab() {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const getFilteredData = () => {
+    if (!search.trim()) {
+      return data;
+    }
+    const searchQuery = search.replace(/-/g, "");
+    return data.filter((item) =>
+      item.key.replace(/-/g, "").includes(searchQuery)
+    );
+  };
 
   const fetchData = async () => {
     setRefreshing(true);
@@ -79,12 +91,18 @@ export default function SecondTab() {
 
   return (
     <View style={styles.container3}>
+      <TextInput // 검색창 추가
+        placeholder="전화번호 검색"
+        value={search}
+        onChangeText={setSearch}
+        style={styles.searchInput}
+      />
       <View style={styles.listHeader}>
         <Text style={styles.headerText}>전화번호</Text>
         <Text style={styles.headerText}>스팸 확률</Text>
       </View>
       <FlatList
-        data={data}
+        data={getFilteredData()}
         renderItem={renderItem}
         keyExtractor={(item) => item.key}
         refreshControl={
@@ -112,7 +130,9 @@ export default function SecondTab() {
               </Text>
             </View>
           )}
-          <Button title="닫기" onPress={closeModal} />
+          <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+            <Text style={styles.closeButtonText}>닫기</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>

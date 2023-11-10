@@ -3,18 +3,46 @@ import {
   View,
   Text,
   StyleSheet,
-  RefreshControl,
   ScrollView,
+  RefreshControl,
+  Image,
+  TouchableOpacity,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
 export default function ThirdTab({ route, navigation }) {
   const { userId, userPassword } = route.params;
+  const [profileImage, setProfileImage] = useState(
+    require("../assets/profile.jpg")
+  );
 
   const [name, setName] = useState("");
   const [cnt, setCnt] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+
+  const chooseImage = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("갤러리 접근 권한이 필요합니다.");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.canceled === true) {
+      return;
+    }
+
+    const pickedImageUri = pickerResult.assets && pickerResult.assets[0].uri;
+
+    if (pickedImageUri) {
+      setProfileImage({ uri: pickedImageUri });
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -53,6 +81,9 @@ export default function ThirdTab({ route, navigation }) {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
+      <TouchableOpacity onPress={chooseImage}>
+        <Image source={profileImage} style={styles.profileImage} />
+      </TouchableOpacity>
       <View style={styles.card}>
         <Ionicons name="person-outline" size={24} color="#4a90e2" />
         <Text style={styles.text}>사용자: {name}</Text>
@@ -70,6 +101,12 @@ export default function ThirdTab({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  profileImage: {
+    width: 250,
+    height: 250,
+    borderRadius: 125,
+    marginBottom: 20,
+  },
   container: {
     flex: 1,
     justifyContent: "center",

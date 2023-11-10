@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -8,12 +8,44 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import * as Font from "expo-font";
+import Toast from "react-native-toast-message";
+
+let customFonts = {
+  DF: require("./assets/fonts/DF.ttf"),
+};
 
 export default function Signup({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await Font.loadAsync(customFonts);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setFontsLoaded(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const handleRegister = async () => {
     try {
@@ -31,8 +63,12 @@ export default function Signup({ navigation }) {
       });
 
       if (response.status === 201) {
-        alert("회원 가입 성공");
         navigation.navigate("Main", { userId: email, userPassword: password });
+        Toast.show({
+          type: "success",
+          text1: "회원가입 성공!",
+          text2: "환영합니다.",
+        });
       } else if (response.status === 400) {
         alert("이미 등록된 회원입니다. 뒤로 돌아가서 로그인하세요.");
       } else {
@@ -46,7 +82,7 @@ export default function Signup({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require("./assets/shield.png")} style={styles.image} />
+      <Image source={require("./assets/shsh.png")} style={styles.image} />
       <Text style={styles.title}>회원가입</Text>
 
       <TextInput
@@ -106,6 +142,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 24,
     color: "#333",
+    fontFamily: "DF",
   },
   input: {
     height: 40,
@@ -116,7 +153,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   registerButton: {
-    backgroundColor: "#e94e77",
+    backgroundColor: "#0b5685",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#0b5685",
     padding: 15,
     borderRadius: 5,
     alignItems: "center",
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: 200,
   },
   button22: {
-    backgroundColor: "#58ACFA",
+    backgroundColor: "#37c7fb",
     padding: 3,
     borderRadius: 5,
     alignItems: "center",
@@ -86,15 +86,30 @@ const styles = StyleSheet.create({
     color: "#888",
   },
 
-  modalPhoneText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
+  modalContentContainer: {
+    width: "75%",
+    backgroundColor: "#f9f9f9",
+    padding: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-
+  modalPhoneText: {
+    fontSize: 20,
+    marginBottom: 20,
+    color: "#333333",
+    fontWeight: "bold",
+  },
   modalItemText: {
-    fontSize: 14,
-    marginBottom: 5,
+    fontSize: 16,
+    marginBottom: 10,
+    color: "#555555",
   },
 
   modalStyle: {
@@ -103,14 +118,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  modalContentContainer: {
-    width: "70%",
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
+  closeButton: {
+    marginTop: 15,
+    backgroundColor: "#0b5685",
+    padding: 10,
+    borderRadius: 5,
+    width: 60,
+    alignContent: "center",
+    textAlign: "center",
     justifyContent: "center",
   },
+
+  closeButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+
   listHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -122,7 +146,15 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: "bold",
     fontSize: 16,
-    color: "#007BFF",
+    color: "#0b5685",
+  },
+  searchInput: {
+    height: 40,
+    borderColor: "black",
+    borderWidth: 1.5,
+    paddingLeft: 10,
+    margin: 10,
+    borderRadius: 5,
   },
 });
 

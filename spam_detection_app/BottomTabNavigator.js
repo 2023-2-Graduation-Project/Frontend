@@ -25,11 +25,15 @@ export default function BottomTabNavigator({ route }) {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
+        tabBarActiveTintColor: "#0b5685",
         tabBarInactiveTintColor: "gray",
+        headerStyle: {
+          backgroundColor: "#CEECF5",
+        },
         tabBarStyle: [
           {
             display: "flex",
+            backgroundColor: "#CEECF5",
           },
           null,
         ],
